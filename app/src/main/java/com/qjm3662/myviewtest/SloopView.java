@@ -1,15 +1,23 @@
 package com.qjm3662.myviewtest;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.Path;
+import android.graphics.Picture;
+import android.graphics.Rect;
 import android.graphics.RectF;
+import android.graphics.drawable.PictureDrawable;
 import android.util.AttributeSet;
 import android.view.View;
 
 /**
- * Created by tanshunwang on 2016/12/7 0007.
+ *
+ * Created by qjm3662 on 2016/12/7 0007.
  */
 
 public class SloopView extends View{
@@ -17,12 +25,33 @@ public class SloopView extends View{
     private Paint mPaint = new Paint();  //创建一个画笔
     //宽高
     private int mWidth, mHeight;
+    private boolean isFirstDraw = true;
+    //Picture,可以理解为Canvas的录像机
+    String text = "Robbin";
+    private Picture mPicture = new Picture();
+
+    private void recording(){
+        // 开始录制 (接收返回值Canvas)
+        Canvas canvas = mPicture.beginRecording(500, 500);
+        // 创建一个画笔
+        Paint paint = new Paint();
+        paint.setColor(Color.BLUE);
+        paint.setStyle(Paint.Style.FILL);
+
+        // 在Canvas中具体操作
+        // 位移
+        canvas.translate(250,250);
+        // 绘制一个圆
+        canvas.drawCircle(0,0,100,paint);
+
+        mPicture.endRecording();
+    }
 
     // 2.初始化画笔
     private void initPaint() {
-        mPaint.setColor(Color.BLUE);       //设置画笔颜色
-        mPaint.setStyle(Paint.Style.FILL);  //设置画笔模式为填充
-        mPaint.setStrokeWidth(10f);         //设置画笔宽度为10px
+        mPaint.setColor(Color.BLACK);           // 画笔颜色 - 黑色
+        mPaint.setStyle(Paint.Style.STROKE);    // 填充模式 - 描边
+        mPaint.setStrokeWidth(10);              // 边框宽度 - 10
     }
 
 
@@ -35,6 +64,8 @@ public class SloopView extends View{
     //一般在layout文件中使用的时候会调用，关于它的所有属性(包括自定义属性)都会包含在attrs中传递进来。
     public SloopView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        //调用录制
+        recording();
         initPaint();
     }
 
@@ -240,15 +271,44 @@ public class SloopView extends View{
 //            canvas.rotate(10);
 //        }
 
+//        canvas.translate(mWidth / 2, mHeight / 2);
+//        mPaint.setStyle(Paint.Style.STROKE);
+//        mPaint.setStrokeWidth(10f);
+//        RectF rectF = new RectF(0, 0, 200, 200);
+//        mPaint.setColor(Color.BLACK);
+//        canvas.drawRect(rectF, mPaint);
+//        canvas.skew(0, 1);
+//        canvas.skew(1, 0);
+//        mPaint.setColor(Color.BLUE);
+//        canvas.drawRect(rectF, mPaint);
+
+//        mPicture.draw(canvas);
+//        canvas.drawPicture(mPicture, new RectF(0, 0, mPicture.getWidth(), 500));
+        //包装成为Drawable
+//        PictureDrawable drawable = new PictureDrawable(mPicture);
+//        //设置绘制区域
+//        drawable.setBounds(0, 0, 250, mPicture.getHeight());
+//        //绘制
+//        drawable.draw(canvas);
+
+
+//        Bitmap bitmap = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.img);
+////        canvas.drawBitmap(bitmap, new Matrix(), new Paint());
+////        canvas.drawBitmap(bitmap, 200, 500, new Paint());
+//        canvas.translate(mWidth / 2, mHeight / 2);
+//        Rect rect = new Rect(0, 0, bitmap.getWidth() / 2, bitmap.getHeight() / 2);
+//        Rect dst = new Rect(0, 0, 400, 400);
+//        canvas.drawBitmap(bitmap, rect, dst, null);
+
+//        mPaint.setTextSize(50);
+//        canvas.drawText(text, 200, 500, mPaint);
         canvas.translate(mWidth / 2, mHeight / 2);
-        mPaint.setStyle(Paint.Style.STROKE);
-        mPaint.setStrokeWidth(10f);
-        RectF rectF = new RectF(0, 0, 200, 200);
-        mPaint.setColor(Color.BLACK);
-        canvas.drawRect(rectF, mPaint);
-        canvas.skew(0, 1);
-        canvas.skew(1, 0);
-        mPaint.setColor(Color.BLUE);
-        canvas.drawRect(rectF, mPaint);
+        Path path = new Path();
+        path.lineTo(200, 200);
+        path.setLastPoint(200, 100);
+        path.lineTo(0, 200);
+        //close的作用是封闭路径，与连接当前最后一个点和第一个点并不等价。如果连接了最后一个点和第一个点仍然无法形成封闭图形，则close什么 也不做
+        path.close();
+        canvas.drawPath(path, mPaint);
     }
 }

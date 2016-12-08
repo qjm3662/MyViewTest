@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         btnStartViewTest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, ViewTestActivity.class));
+                startActivity(new Intent(MainActivity.this, JustTestActivity.class));
             }
         });
 //        for(PieData p : mData){

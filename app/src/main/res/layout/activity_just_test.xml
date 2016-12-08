@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_just_test"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.qjm3662.myviewtest.JustTestActivity">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <CheckBox
+            android:id="@+id/cb1"
+            android:text="控制点1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <View
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"/>
+        <CheckBox
+            android:id="@+id/cb2"
+            android:text="控制点2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <com.qjm3662.myviewtest.Bezier2
+        android:id="@+id/bezier2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</LinearLayout>

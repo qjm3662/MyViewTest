@@ -7,7 +7,19 @@
     android:layout_height="match_parent"
     tools:context="com.qjm3662.myviewtest.ViewTestActivity">
 
-    <com.qjm3662.myviewtest.SloopView
+    <Button
+        android:id="@+id/btn_check"
+        android:text="CHECK"
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
+    <Button
+        android:id="@+id/btn_unCheck"
+        android:text="UNCHECK"
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
+    <com.qjm3662.myviewtest.CheckView
+        android:id="@+id/checkView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
 </LinearLayout>
