@@ -4,10 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Rect;
 import android.graphics.RectF;
-import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -18,6 +15,8 @@ import android.view.View;
 public class SloopView extends View{
 
     private Paint mPaint = new Paint();  //创建一个画笔
+    //宽高
+    private int mWidth, mHeight;
 
     // 2.初始化画笔
     private void initPaint() {
@@ -75,6 +74,8 @@ public class SloopView extends View{
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
+        mWidth = w;
+        mHeight = h;
     }
 
 
@@ -170,17 +171,84 @@ public class SloopView extends View{
 
 
         //测试Paint的使用
-        Paint paint = new Paint();
-        paint.setColor(Color.BLUE);
-        paint.setStrokeWidth(40);     //为了实验效果明显，特地设置描边宽度非常大
-        // 描边
-        paint.setStyle(Paint.Style.STROKE);
-        canvas.drawCircle(200,200,100,paint);
-        // 填充
-        paint.setStyle(Paint.Style.FILL);
-        canvas.drawCircle(200,500,100,paint);
-        // 描边加填充
-        paint.setStyle(Paint.Style.FILL_AND_STROKE);
-        canvas.drawCircle(200, 800, 100, paint);
+//        Paint paint = new Paint();
+//        paint.setColor(Color.BLUE);
+//        paint.setStrokeWidth(40);     //为了实验效果明显，特地设置描边宽度非常大
+//        // 描边
+//        paint.setStyle(Paint.Style.STROKE);
+//        canvas.drawCircle(200,200,100,paint);
+//        // 填充
+//        paint.setStyle(Paint.Style.FILL);
+//        canvas.drawCircle(200,500,100,paint);
+//        // 描边加填充
+//        paint.setStyle(Paint.Style.FILL_AND_STROKE);
+//        canvas.drawCircle(200, 800, 100, paint);
+
+
+
+        // 在坐标原点绘制一个黑色圆形
+//        mPaint.setColor(Color.BLACK);
+//        mPaint.setAntiAlias(true);
+//        canvas.translate(200,200);      //位移，相对当前位置，而不是（0，0）点
+//        canvas.drawCircle(0,0,100,mPaint);
+//        // 在坐标原点绘制一个蓝色圆形
+//        mPaint.setColor(Color.BLUE);
+//        canvas.translate(200,200);
+//        canvas.drawCircle(0,0,100,mPaint);
+
+
+//        // 将坐标系原点移动到画布正中心
+//        canvas.translate(mWidth / 2, mHeight / 2);
+//        mPaint.setStyle(Paint.Style.STROKE);
+//        mPaint.setStrokeWidth(10f);
+//        RectF rectF = new RectF(0, -400, 400, 0);
+//        mPaint.setColor(Color.BLACK);
+//        canvas.drawRect(rectF, mPaint);     //绘制黑色矩形区域
+//        canvas.scale(-0.5f, -0.5f, 200, 0);   //画布缩放
+//        mPaint.setColor(Color.BLUE);
+//        canvas.drawRect(rectF, mPaint);
+
+//        canvas.translate(mWidth / 2, mHeight / 2);
+//        mPaint.setStyle(Paint.Style.STROKE);
+//        mPaint.setStrokeWidth(10f);
+//        RectF recF = new RectF(-400, -400, 400, 400);
+//        for(int i = 0; i <= 20; i++){
+//            canvas.scale(0.9f, 0.9f);
+//            canvas.drawRect(recF, mPaint);
+//        }
+
+
+//        canvas.translate(mWidth / 2, mHeight / 2);
+//        RectF rectF = new RectF(0, -400, 400, 0);
+//        mPaint.setColor(Color.BLACK);
+//        mPaint.setStyle(Paint.Style.STROKE);
+//        mPaint.setStrokeWidth(10f);
+//        canvas.drawRect(rectF, mPaint);
+//        canvas.rotate(20);
+//        canvas.rotate(180, 200, 0);
+//        mPaint.setColor(Color.BLUE);
+//        canvas.drawRect(rectF, mPaint);
+
+
+//        canvas.translate(mWidth / 2, mHeight / 2);
+//        mPaint.setStyle(Paint.Style.STROKE);
+//        mPaint.setStrokeWidth(10f);
+//        canvas.drawCircle(0, 0, 400, mPaint);
+//        canvas.drawCircle(0, 0, 380, mPaint);
+//        for(int i = 0; i < 360; i += 10){
+//            canvas.drawLine(0, 380, 0, 400, mPaint);
+//            canvas.rotate(10);
+//        }
+
+        canvas.translate(mWidth / 2, mHeight / 2);
+        mPaint.setStyle(Paint.Style.STROKE);
+        mPaint.setStrokeWidth(10f);
+        RectF rectF = new RectF(0, 0, 200, 200);
+        mPaint.setColor(Color.BLACK);
+        canvas.drawRect(rectF, mPaint);
+        canvas.skew(0, 1);
+        canvas.skew(1, 0);
+        mPaint.setColor(Color.BLUE);
+        canvas.drawRect(rectF, mPaint);
     }
 }
